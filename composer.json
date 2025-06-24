@@ -1,0 +1,19 @@
+{
+    "name": "ferripradana/php-framework",
+    "description": "simple php framework ferripradana",
+    "type": "project",
+    "authors": [
+        {
+            "name": "ferripradana",
+            "email": "ferri.pradana@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^12.19"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

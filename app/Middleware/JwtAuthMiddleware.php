@@ -13,18 +13,18 @@ class JwtAuthMiddleware implements Middleware
     {
         $authHeader = $request->header('Authorization');
 
-        // if (!$authHeader || !preg_match('/Bearer\\s+(.*)/', $authHeader, $matches)) {
-        //     $response->json(['message' => 'Unauthorized'], 401);
-        //     return false;
-        // }
+        if (!$authHeader || !preg_match('/Bearer\\s+(.*)/', $authHeader, $matches)) {
+            $response->json(['message' => 'Unauthorized'], 401);
+            return false;
+        }
 
-        // $token = $matches[1];
-        // $decoded = JwtHelper::validateToken($token);
+        $token = $matches[1];
+        $decoded = JwtHelper::validateToken($token);
 
-        // if (!$decoded) {
-        //     $response->json(['message' => 'Invalid token'], 401);
-        //     return false;
-        // }
+        if (!$decoded) {
+            $response->json(['message' => 'Invalid token'], 401);
+            return false;
+        }
 
         return true;
     }

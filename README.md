@@ -1,4 +1,4 @@
-#How To Run
+# How To Run
 
 - Clone Project
 - Go to the root directory

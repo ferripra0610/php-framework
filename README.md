@@ -1,5 +1,6 @@
 # How To Run
 
+- Open Terminal
 - Clone Project
 - Go to the root directory
 - composer install

@@ -21,7 +21,7 @@ class AuthController
         $user = $this->userService->findByEmail($username);
         if (!empty($user) && password_verify($password, $user->password)) {
             $token = JwtHelper::generateToken(['username' => $user->email]);
-            return $response->json(['token' => $token]);
+            return $response->json($token);
         }
 
         return $response->json(['message' => 'Invalid credentials'], 401);

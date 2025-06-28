@@ -9,11 +9,15 @@ class JwtHelper
     public static function generateToken($payload)
     {
         $payload['exp'] =  time() + 3600;
+        $exp = $payload['exp'];
         $header = base64_encode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
         $payload = base64_encode(json_encode($payload));
         $signature = hash_hmac('sha256', "$header.$payload", self::$secretKey, true);
         $signature = base64_encode($signature);
-        return "$header.$payload.$signature";
+        return [
+            "token" => "$header.$payload.$signature",
+            "exp"   => $exp,
+        ];
     }
 
     public static function validateToken($token)

@@ -8,6 +8,9 @@ use App\Services\UserService;
 
 class UserController
 {
+
+    use Ext\Helper;
+
     private $userService;
 
     public function __construct(UserService $userService)
@@ -17,13 +20,15 @@ class UserController
 
     public function index($request, $response)
     {
-        $users = $this->userService->getAllUsers();
+        $this->setParameter($request);
+        $users = $this->userService->paginate($this->search, $this->page, $this->size, $this->sortBy, $this->sortDir);
         return $response->json($users);
     }
 
     public function show($request, $response, $id)
     {
-        return $response->json(['message' => 'User detail', 'user_id' => $id]);
+        $user = $this->userService->find($id);
+        return $response->json($user);
     }
 
     public function store($request, $response)

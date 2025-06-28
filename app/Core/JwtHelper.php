@@ -8,6 +8,7 @@ class JwtHelper
 
     public static function generateToken($payload)
     {
+        $payload['exp'] =  time() + 3600;
         $header = base64_encode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
         $payload = base64_encode(json_encode($payload));
         $signature = hash_hmac('sha256', "$header.$payload", self::$secretKey, true);
@@ -29,6 +30,13 @@ class JwtHelper
             return false;
         }
 
-        return json_decode(base64_decode($payload), true);
+        $payload = base64_decode(strtr($payload, '-_', '+/'));
+        $payload = json_decode($payload, true);
+        
+        if(time() > $payload['exp']){
+            return false;
+        }
+
+        return $payload;
     }
 }

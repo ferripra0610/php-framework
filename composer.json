@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "illuminate/database": "^12.19"
+        "illuminate/database": "^12.19",
+        "illuminate/pagination": "^12.19"
     },
     "autoload": {
         "psr-4": {

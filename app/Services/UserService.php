@@ -17,4 +17,16 @@ class UserService
     {
         return $this->userRepository->findAll();
     }
+
+    public function findByEmail($email){
+        return $this->userRepository->findByEmail($email);
+    }
+
+    public function find($id){
+        return $this->userRepository->find($id);
+    }
+
+    public function paginate($search = "", $page = 1, $size = 10, $sortBy = '', $sortDir = ''){
+        return $this->userRepository->paginate($search, $page, $size, $sortBy, $sortDir);
+    }
 }

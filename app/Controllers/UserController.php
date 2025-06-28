@@ -34,7 +34,6 @@ class UserController
     public function store($request, $response)
     {
         $body = $request->body();
-        $body['password'] = password_hash($body['password'], PASSWORD_BCRYPT);
         $data = $this->userService->store($body);
         return $response->json(['message' => 'Success', 'data' => $data], 201);
     }
@@ -42,10 +41,8 @@ class UserController
     public function update($request, $response, $id)
     {
         $data = $request->body();
-        if (isset($data['password']))
-            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $res = $this->userService->update($id, $data);
-        return $response->json(['message' => 'Success', 'user_id' => $id, 'data' => $data]);
+        return $response->json(['message' => 'Success Update', 'user_id' => $id]);
     }
 
     public function delete($request, $response, $id)

@@ -31,10 +31,16 @@ class UserService
     }
 
     public function store($body){
+        $body['password'] = password_hash($body['password'], PASSWORD_BCRYPT);
         return $this->userRepository->store($body);
     }
 
     public function update($id, $body){
+        if (isset($body['password']))
+            $body['password'] = password_hash($body['password'], PASSWORD_BCRYPT);
+        else
+            unset($body['password']);
+
         return $this->userRepository->update($id, $body);
     }
 

@@ -29,4 +29,16 @@ class UserService
     public function paginate($search = "", $page = 1, $size = 10, $sortBy = '', $sortDir = ''){
         return $this->userRepository->paginate($search, $page, $size, $sortBy, $sortDir);
     }
+
+    public function store($body){
+        return $this->userRepository->store($body);
+    }
+
+    public function update($id, $body){
+        return $this->userRepository->update($id, $body);
+    }
+
+    public function delete($id){
+        return $this->userRepository->delete($id);
+    }
 }

@@ -38,4 +38,16 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::where("email", $email)->first();
     }
+
+    public function store($body){
+        return User::create($body);
+    }
+
+    public function update($id, $body){
+        return User::where('id', $id)->update($body);
+    }
+    
+    public function delete($id){
+        return User::destroy($id);
+    }
 }

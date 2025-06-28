@@ -28,23 +28,29 @@ class UserController
     public function show($request, $response, $id)
     {
         $user = $this->userService->find($id);
-        return $response->json($user);
+        $response->json(['message' => 'Success', 'data' => $user], 200);
     }
 
     public function store($request, $response)
     {
-        $data = $request->body();
-        return $response->json(['message' => 'User created', 'data' => $data], 201);
+        $body = $request->body();
+        $body['password'] = password_hash($body['password'], PASSWORD_BCRYPT);
+        $data = $this->userService->store($body);
+        return $response->json(['message' => 'Success', 'data' => $data], 201);
     }
 
     public function update($request, $response, $id)
     {
         $data = $request->body();
-        return $response->json(['message' => 'User updated', 'user_id' => $id, 'data' => $data]);
+        if (isset($data['password']))
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        $res = $this->userService->update($id, $data);
+        return $response->json(['message' => 'Success', 'user_id' => $id, 'data' => $data]);
     }
 
     public function delete($request, $response, $id)
     {
-        return $response->json(['message' => 'User deleted', 'user_id' => $id]);
+        $res = $this->userService->delete($id);
+        return $response->json(['message' => 'Success', 'user_id' => $id]);
     }
 }

@@ -34,6 +34,11 @@ class Router
         $matchedRoute = null;
         $routeParams = [];
 
+        $cors = new \App\Middleware\CorsMiddleware();
+        if (!$cors->handle($request, $response)) {
+            return;
+        }
+
         if (!isset(self::$routes[$method])) {
             $response->json(['message' => 'Method not allowed'], 405);
             return;

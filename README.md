@@ -14,7 +14,6 @@
 - Open Terminal
 - Clone Project
 - Go to the root directory
-- composer install
 - Read DockerizeMyRestAPI.pdf
 
 ![Alt text](image.png)

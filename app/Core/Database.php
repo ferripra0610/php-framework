@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Core;
 
@@ -10,13 +10,12 @@ class Database
     {
         try {
             $capsule = new Capsule;
-
             $capsule->addConnection([
-                'driver'    => 'pgsql',
-                'host'      => 'localhost',
-                'database'  => 'excercise',
-                'username'  => 'postgres',
-                'password'  => 'root',
+                'driver'    => config('db.driver'),
+                'host'      => config('db.host'),
+                'database'  => config('db.database'),
+                'username'  => config('db.username'),
+                'password'  => config('db.password'),
                 'charset'   => 'utf8',
                 'prefix'    => '',
                 'schema'    => 'public',
@@ -28,6 +27,5 @@ class Database
         } catch (\Throwable $th) {
             echo "connection failed ... !";
         }
-        
     }
 }

@@ -8,6 +8,11 @@ class Request
         return $_SERVER['REQUEST_METHOD'];
     }
 
+    public function get()
+    {
+        return $_GET;
+    }
+
     public function uri()
     {
         return strtok($_SERVER['REQUEST_URI'], '?');

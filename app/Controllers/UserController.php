@@ -8,6 +8,9 @@ use App\Services\UserService;
 
 class UserController
 {
+
+    use Ext\Helper;
+
     private $userService;
 
     public function __construct(UserService $userService)
@@ -17,29 +20,34 @@ class UserController
 
     public function index($request, $response)
     {
-        $users = $this->userService->getAllUsers();
+        $this->setParameter($request);
+        $users = $this->userService->paginate($this->search, $this->page, $this->size, $this->sortBy, $this->sortDir);
         return $response->json($users);
     }
 
     public function show($request, $response, $id)
     {
-        return $response->json(['message' => 'User detail', 'user_id' => $id]);
+        $user = $this->userService->find($id);
+        $response->json(['message' => 'Success', 'data' => $user], 200);
     }
 
     public function store($request, $response)
     {
-        $data = $request->body();
-        return $response->json(['message' => 'User created', 'data' => $data], 201);
+        $body = $request->body();
+        $data = $this->userService->store($body);
+        return $response->json(['message' => 'Success', 'data' => $data], 201);
     }
 
     public function update($request, $response, $id)
     {
         $data = $request->body();
-        return $response->json(['message' => 'User updated', 'user_id' => $id, 'data' => $data]);
+        $res = $this->userService->update($id, $data);
+        return $response->json(['message' => 'Success Update', 'user_id' => $id]);
     }
 
     public function delete($request, $response, $id)
     {
-        return $response->json(['message' => 'User deleted', 'user_id' => $id]);
+        $res = $this->userService->delete($id);
+        return $response->json(['message' => 'Success', 'user_id' => $id]);
     }
 }
